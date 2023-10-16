@@ -1,7 +1,7 @@
 from flask import Flask
 import pymongo
 
-client=pymongo.MongoClient("mongodb+srv://root:root0320@trainingcluster.ymqgddi.mongodb.net/?retryWrites=true&w=majority")
+client=pymongo.MongoClient("...")
 
 app = Flask(__name__,
             static_folder="public",
