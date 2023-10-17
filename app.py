@@ -22,5 +22,29 @@ def error():
     msg = request.args.get("msg", "error occur, please contact us")
     return render_template("error.html", msg=msg)
 
+@app.route("/signup", method=["POST"])
+def signup():
+    # receive data from frontend 
+    nickname = request.form["nickname"]
+    email = request.form["email"]
+    password = request.form["password"]
+
+    # db check and write
+    collection = db.user
+    result=collection.find_one({
+        "email":email
+    })
+    if result != None:
+        return redirect("/error?meg=email has been used")
+    
+    collection.insert_one({
+        "nickname":nickname,
+        "email":email,
+        "password":password
+    })
+
+    return redirect('/')
+
+
 app.secret_key="any string"
 app.run()
